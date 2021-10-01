@@ -162,17 +162,6 @@ def parse_qa_csv_file(location, dataset=None, CSNET_ADV=False, concode_with_code
                     q = q.split("concode_field_sep")[0]
                 yield q, row_json["code"]
 
-    elif dataset=='KP20k':
-        logger.info("Parsing KP20k dataset")
-        with open(location) as reader:
-            for row in reader:
-                line = json.loads(row)
-                q = line["keyword"]
-                try:
-                    text = line["title"] + ' </s> ' + line["abstract"]
-                except:
-                    text = "N/A"
-                yield q, text
 
     elif dataset == "ICLR":
         logger.info("Parsing ICLR dataset")
@@ -429,24 +418,6 @@ def main(args):
     if len(all_passages) == 0:
         raise RuntimeError('No passages data found. Please specify ctx_file param properly.')
 
-    if args.CSNET_ADV:
-        import jsonlines
-        with open(args.qa_file) as tsvfile, jsonlines.open("predictions.jsonl", "w") as wf:
-            for line, top_ids_score  in zip(tsvfile, top_ids_and_scores):
-                row_json = json.loads(line)
-                wf.write({"url":row_json["url"], "answers":top_ids_score[0]})
-        import ipdb
-        ipdb.set_trace()
-    if args.dataset=="KP20k":
-        logger.info('Writing retrivals to: predictions_KP20k.jsonl')
-        import jsonlines
-        with open(args.qa_file) as tsvfile, jsonlines.open("predictions_KP20k.jsonl", "w") as wf:
-            idx=0
-            for line, top_ids_score  in zip(tsvfile, top_ids_and_scores):
-                wf.write({"id":str(idx), "answers":top_ids_score[0]})
-                idx+=1
-        import ipdb
-        ipdb.set_trace()
 
 
     questions_doc_hits = validate(all_passages, question_answers, top_ids_and_scores, args.validation_workers,

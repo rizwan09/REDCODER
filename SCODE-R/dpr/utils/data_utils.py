@@ -73,10 +73,6 @@ def read_data_from_json_files(paths: List[str], upsample_rates: List = None, Top
                                                 "positive_ctxs": [{"text": d["snippet"], "title": None}],
                                                 "label": "1"})
 
-
-                # import ipdb
-                # ipdb.set_trace()
-
             elif dataset == 'CONCODE':
                 logger.info("Parsing CONCODE dataset")
                 source_str = "nl"
@@ -101,40 +97,9 @@ def read_data_from_json_files(paths: List[str], upsample_rates: List = None, Top
                             logger.info("Source/q: %s", q)
                             logger.info("Traget/context: %s", ctx["text"])
                             logger.info("----------------------")
-            elif dataset == "KP20k":
-                logger.info("Parsing KP20k dataset")
-                with open(path) as reader:
-                    for row in reader:
-                        line = json.loads(row)
-                        q = line["keyword"]
-                        text = line["title"]+ ' </s> ' + line["abstract"]
-                        ctx = {"text": text, "title": None, "answers": [ text ]}
-                        object = {"question": q, "hard_negative_ctxs": [], "negative_ctxs": [],
-                                  "positive_ctxs": [ctx], "label": "1"}
-                        results.append(object)
-                        if len(results) < 5:
-                            logger.info("----------------------")
-                            logger.info("Source/q: %s", q)
-                            logger.info("Traget/context: %s", ctx["text"])
-                            logger.info("----------------------")
 
 
-            elif dataset == "ICLR" and not text_to_code:
-                logger.info("Parsing ICLR dataset")
-                with open(path) as reader:
-                    for row in reader:
-                        line = json.loads(row)
-                        q = line["function"]
-                        text = line["summary"]
-                        ctx = {"text": text, "title": None, "answers": [ text ]}
-                        object = {"question": q, "hard_negative_ctxs": [], "negative_ctxs": [],
-                                  "positive_ctxs": [ctx], "label": "1"}
-                        results.append(object)
-                        if len(results) < 5:
-                            logger.info("----------------------")
-                            logger.info("Source/q: %s", q)
-                            logger.info("Traget/context: %s", ctx["text"])
-                            logger.info("----------------------")
+
 
             elif path.endswith("txt"):
                 if text_to_code: logger.info("Text-to-Code")
@@ -152,14 +117,10 @@ def read_data_from_json_files(paths: List[str], upsample_rates: List = None, Top
                         if not text_to_code:
                             source_str = 4
                             target_str = 3
-                        # ctx = {"text":line[4], "title":None, "answers":[line[4]]}
-                        # if label=="0": object = {"question": line[3], "hard_negative_ctxs": [ctx], "negative_ctxs":[], "positive_ctxs":[], "label": label}
-                        # else: object = {"question": line[3], "positive_ctxs":[ctx], "hard_negative_ctxs": [], "negative_ctxs":[], "label": label}
-                        # results.append(object)
 
                         ctx = {"text": line[target_str], "title": None, "answers": [line[target_str]]}
                         if label == "0":
-                            object = {"question": line[source_str], "hard_negative_ctxs": [ctx], "negative_ctxs": [],
+                            object = {"question": line[source_str], "hard_negative_ctxs": [ctx], "negative_ctxs": [], #not hard_negatives actually
                                       "positive_ctxs": [], "label": label}
                         else:
                             object = {"question": line[source_str], "positive_ctxs": [ctx], "hard_negative_ctxs": [],
@@ -179,11 +140,10 @@ def read_data_from_json_files(paths: List[str], upsample_rates: List = None, Top
                         if not text_to_code:
                             source_str = "function_tokens"
                             target_str = "docstring_tokens"
-                            target = "docstring"
 
                         try:
-                            ctx = {"text":line[target], "title":None, "answers":[' '.join(line[target_str])]}
-                            if label=="0": object = {"question": ' '.join(line[source_str]), "hard_negative_ctxs": [ctx], "negative_ctxs":[], "positive_ctxs":[], "label": label}
+                            ctx = {"text":' '.join(line[target_str]), "title":None, "answers":[' '.join(line[target_str])]}
+                            if label=="0": object = {"question": ' '.join(line[source_str]), "hard_negative_ctxs": [ctx], "negative_ctxs":[], "positive_ctxs":[], "label": label} #not hard_negatives actually
                             else: object = {"question": ' '.join(line[source_str]), "positive_ctxs":[ctx], "hard_negative_ctxs": [], "negative_ctxs":[], "label": label}
                             results.append(object)
                         except:
@@ -193,7 +153,7 @@ def read_data_from_json_files(paths: List[str], upsample_rates: List = None, Top
                                 target_str = "code_tokens"
                                 target = 'code'
                             try:
-                                ctx = {"text": line[target], "title": None, "answers": [' '.join(line[target_str])]}
+                                ctx = {"text": ' '.join(line[target_str]), "title": None, "answers": [' '.join(line[target_str])]}
                                 if label == "0":
                                     object = {"question": ' '.join(line[source_str]), "hard_negative_ctxs": [ctx],
                                               "negative_ctxs": [], "positive_ctxs": [], "label": label}
