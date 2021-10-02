@@ -16,12 +16,8 @@ If you find this paper or this code useful, please cite this paper:
 
 ## Features
 1. SCODE-G generator model is based on [PLBART](https://arxiv.org/abs/2103.06333).
-2. It can work with originl input and top-k unimoal or bimoal retrived candidates. For details see [our paper](https://arxiv.org/abs/2108.11601).
+2. It takes the original input and its top-k unimoal or bimoal retrived candidates. For details see [our paper](https://arxiv.org/abs/2108.11601).
 
-## Dependency Installation
-
-We tested with pytorch 1.7.1 and fairseq 0.9.0
-Please install them first.
 
 ## SCODE-G Installation
 
@@ -32,8 +28,6 @@ git clone https://github.com/rizwan09/REDCODER.git
 cd REDCODER/SCODE-G
 bash install_tools.sh
 ```
-
-
 
 
 
