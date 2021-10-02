@@ -1,4 +1,4 @@
-# SCODE-R (Summary and CODE Retriever)
+# REDCODER (Retrieval augmentED CODe gEneration and summaRization)
 
 This is repository for the SCODE-R retriever in the [Retrieval Augmented Code Generation and Summarization](https://arxiv.org/abs/2108.11601) paper.
 
