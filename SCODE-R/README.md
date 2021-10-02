@@ -102,7 +102,7 @@ To create the local file for the pretrained model, please download: [[hf_graphco
     - By default, we did not change the original input data format which consists of a (NL + Code Env Variable -> Code) 
         - So we use an additional flag ```--concode_with_code``` 
         - For (NL -> Code) do not use this ```--concode_with_code``` flag.
-## Retriever candidate data format
+## Retriever candidate embedding
 
 ```bash
 CHECKPOINT={retirver best checkpint from previous step}
