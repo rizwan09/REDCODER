@@ -16,7 +16,7 @@ If you find this paper or this code useful, please cite this paper:
 
 ## Features
 1. SCODE-G generator model is based on [PLBART](https://arxiv.org/abs/2103.06333).
-2. It takes the original input and its top-k unimoal or bimoal retrived candidates. For details see [our paper](https://arxiv.org/abs/2108.11601).
+2. As input, SCODE-G takes the original input text/code and its top-k unimoal or bimoal retrived candidates. For details see [our paper](https://arxiv.org/abs/2108.11601).
 
 
 ## SCODE-G Installation
