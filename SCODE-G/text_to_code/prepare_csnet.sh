@@ -10,10 +10,7 @@ WITH_OR_WITHOUT_REF=${5:-with} #with or no
 
 SPMDIR=/local/wasiahmad/codebart
 RETDIR=/local/rizwan/DPR_models/csnet
-#RETDIR=/home/rizwan/DPR_models/biencoder_graphcode_models_csnet_text_code
 SAVE_DIR="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/${LANG}_retrievd_from_${WITH_OR_WITHOUT_REF}_ref_top_${top_k}_mask_rate_${MASK_RATE}"
-#SAVE_DIR="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/${LANG}_retrievd_from_${WITH_OR_WITHOUT_REF}_ref_top_${top_k}"
-#SAVE_DIR="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/${LANG}_retrievd_from_${WITH_OR_WITHOUT_REF}_ref_top_${top_k}_filtered"
 mkdir -p $SAVE_DIR
 
 

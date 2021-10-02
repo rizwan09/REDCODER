@@ -15,40 +15,43 @@ If you find this paper or this code useful, please cite this paper:
 
 
 ## Features
-1. SCODE-R retriever model is based on bi-encoder architecture in [DPR](https://arxiv.org/abs/2004.04906).
-2. Trains only using in batch negatives (the hard negatives are not considered). For details see [our paper](https://arxiv.org/abs/2108.11601).
+1. SCODE-G generator model is based on [PLBART](https://arxiv.org/abs/2103.06333).
+2. It can work with originl input and top-k unimoal or bimoal retrived candidates. For details see [our paper](https://arxiv.org/abs/2108.11601).
 
-## Installation
+## Dependency Installation
 
-We tested with pytorch 1.7.1 Huggingface Transformers 3.0.2 (Provided in the root dir for convenience)
+We tested with pytorch 1.7.1 and fairseq 0.9.0
+Please install them first.
+
+## SCODE-G Installation
 
 Installation from the source. Python's virtual or Conda environments are recommended.
 
 ```bash
 git clone https://github.com/rizwan09/REDCODER.git
-cd REDCODER/transformers-3.0.2
-pip install -e
-cd ../
-cd SCODE-R
-pip install -e .
+cd REDCODER/SCODE-G
+bash install_tools.sh
 ```
 
-DPR is tested on Python 3.6+, PyTorch 1.7.1+ and with Huggingface Transformers 3.0.2 (added in the [root dir](https://github.com/rizwan09/REDCODER/tree/main/transformers-3.0.2_alignment_proj))
-DPR relies on third-party libraries for encoder code implementations.
-It currently supports Huggingface RoBERTa encoder models.
-Due to generality of the tokenization process, DPR uses Huggingface tokenizers as of now. So Huggingface is the only required dependency.
 
 
 
 
-## SCODE-R input data format
-We support the datsets Concode, Conala, and the CodeXGLUE-CSNET (jsonl) formateted dataset. 
-The corresponding data read and pre-processing codes are provided [here](https://github.com/rizwan09/REDCODER/blob/main/DPR-master-with-redocder-scripts/dpr/utils/data_utils.py).
-Below for each datset, we provide the execution commands.
+## SCODE-G input data format
+Our input is the output from the SCODE-R.
 
-## SCODE-R training
+## SCODE-G for text to code:
+
+### Input data pre-processing:
+
+
+
+## SCODE-G for code to text:
+
+## Retriever training
 Retriever training quality depends on its effective batch size. The one reported in the paper used 2/3/4 x 12GB GPUs.
 In order to start training on one machine with multigpus:
+
 ```bash
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
@@ -94,9 +97,7 @@ To create the local file for the pretrained model, please download: [[hf_graphco
     - By default, we did not change the original input data format which consists of a (NL + Code Env Variable -> Code) 
         - So we use an additional flag ```--concode_with_code``` 
         - For (NL -> Code) do not use this ```--concode_with_code``` flag.
-
-
-## SCODE-R candidate embedding
+## Retriever candidate embedding
 
 ```bash
 CHECKPOINT={retirver best checkpint from previous step}
@@ -134,7 +135,7 @@ So far we support the following dataset format:
 - For code->text we use use the same candidate_file or in our paper we retrieved from a collection: CoeXGLUE-CSNET(trainsets)+[C_summarization dataset](https://openreview.net/pdf?id=zv-typ1gPxA)
 
 
-## SCODE-R inference (retrieve):
+## Retriever inference (retrieve):
 
 ```bash
 TOP_K=200

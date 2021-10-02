@@ -8,46 +8,6 @@ import nltk
 import numpy as np
 import random
 
-try:
-    vocabs = [line.split()[0].strip() for line in open('/local/wasiahmad/codebart/vocab').readlines()][:40000]
-except:
-    vocabs = [line.split()[0].strip() for line in open('/home/rizwan/DPR_models/vocab').readlines()][:40000]
-print("last 20 vocabs: ", vocabs[-20:])
-print("#vocab: ", len(vocabs))
-
-def get_masked_sent(sent, mask_rate=0.15, debug=False):
-    """
-    Adapted from https://github.com/huggingface/transformers/blob/f9cde97b313c3218e1b29ea73a42414dfefadb40/examples/lm_finetuning/simple_lm_finetuning.py#L276-L301
-    Masking some random tokens for Language Model task with probabilities as in the original BERT paper.
-    :param tokens: list of str, tokenized sentence.
-    :param tokenizer: Tokenizer, object used for tokenization (we need it's vocab here)
-    :return: (list of str, list of int), masked tokens and related labels for LM prediction
-    """
-    if debug:
-        import ipdb
-        ipdb.set_trace()
-    tokens = sent.split()
-    # print('unmasked tokens: ', tokens)
-    for i, token in enumerate(tokens):
-        prob = random.random()
-        # mask token with 15% probability
-        if prob < mask_rate:
-            prob /= mask_rate
-
-            # 80% randomly change token to mask token
-            if prob < 0.8:
-                tokens[i] = "[MASK]"
-
-            # 10% randomly change token to random token
-            elif prob < 0.9:
-                tokens[i] = random.choice(vocabs)[0].replace('@', '')
-
-            # -> rest 10% randomly keep current token
-
-        else:
-            pass
-    # print('masked tokens: ', tokens)
-    return ' '.join(tokens)
 
 def count_file_lines(file_path):
     """
@@ -103,10 +63,7 @@ def main(args):
             for rank, ctx in enumerate(ex['ctxs']):
                 # if "test.json" not in ctx["id"] and target.strip()!=ctx["text"].strip(): #for retrieving without test corpus
                 if args.WITH_OR_WITHOUT_REF=="with":  #for retrieving without ref code but includes other codes in the test corpus
-                    if "train" in args.retrieved_code_file and args.mask_rate>0:
-                        source += ' _CODE_SEP_ ' + get_masked_sent(ctx["text"], mask_rate=args.mask_rate)
-                    else:
-                        source += ' _CODE_SEP_ ' + (ctx["text"])
+                    source += ' _CODE_SEP_ ' + (ctx["text"])
 
 
                     source += '_NL_' + ctx["title"].split('concode_')[0]
@@ -115,10 +72,7 @@ def main(args):
                         break
                 else:
                     if target.strip() != ctx["text"].split('_NL_')[0].strip():
-                        if "train" in args.retrieved_code_file and args.mask_rate > 0:
-                            source += ' _CODE_SEP_ ' + get_masked_sent(ctx["text"], mask_rate=args.mask_rate)
-                        else:
-                            source += ' _CODE_SEP_ ' + (ctx["text"])
+                        source += ' _CODE_SEP_ ' + (ctx["text"])
                         source += ' _NL_' + ctx["title"].split('concode_')[0]
                         inserted += 1
                         if inserted >= args.top_k:
