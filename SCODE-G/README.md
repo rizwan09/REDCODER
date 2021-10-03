@@ -61,11 +61,11 @@ cd SCODE-G/text_to_code
 - For CodeXGLUE-CSNET:
 ```bash
 LANG={python/java}
-top_k={4/5}
-WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
-SAVE_DIR=${4:-with} #with or no
+top_k={5 for java; 4 for python}
+WITH_OR_WITHOUT_REF={with} #with for filtering the
+SAVE_DIR={Output directory} #with or no
 
-bash prepare_csnet_with_comments.sh
+bash prepare_csnet_with_comments.sh ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF}
 ```
 - Notes:
 

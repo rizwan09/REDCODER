@@ -58,7 +58,7 @@ def main(args):
                         break
                 else:
                     if target.strip() != ctx["text"].split('_NL_')[0].strip():
-                        source += ' _CODE_SEP_ ' + (ctx["text"])
+                        source += ' _CODE_SEP_ ' + ctx["text"]
                         inserted += 1
                         if inserted >= args.top_k:
                             break

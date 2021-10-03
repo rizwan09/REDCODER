@@ -66,13 +66,13 @@ def load_data(input_file, src_field, tgt_field, src_lang, top_k, WITH_WITHOUT_SU
                 inserted = 0
                 for rank, ctx in enumerate(ex['ctxs']):
                     if WITH_WITHOUT_SUFFIX=="with":
-                        src += ' _NL_SEP_ ' +  ctx["text"].split('_NL_')[0].strip()
+                        src += ' _NL_SEP_ ' + (ctx["text"])
                         inserted += 1
                         if inserted >= top_k:
                             break
                     else:
-                        if tgt.strip()!= ctx["text"].split('_NL_')[0].strip(): #for retrieving without ref code but includes other codes in the test corpus
-                            src += ' _NL_SEP_ ' +  ctx["text"].split('_NL_')[0].strip()
+                        if tgt.strip()!=ctx["text"].strip(): #for retrieving without ref code but includes other codes in the test corpus
+                            src += ' _NL_SEP_ ' + (ctx["text"])
                             inserted += 1
                             if inserted >= top_k:
                                 break

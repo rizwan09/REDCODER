@@ -27,7 +27,7 @@ for SPLIT in test train valid; do
 
         fi
         SRC_FIELD="question"
-        python encode.py \
+        python encode_with_codes.py \
             --top_k $top_k \
             --WITH_WITHOUT_SUFFIX $WITH_WITHOUT_SUFFIX \
             --model-file ${SPMDIR}/sentencepiece.bpe.model \

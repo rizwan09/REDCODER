@@ -1,27 +1,22 @@
 #!/usr/bin/env bash
 # run: bash prepare.sh java 1 false false true &
 
-LANG=${1:-java}
-top_k=${2:-1}
-NO_CONCODE_VARS=${3:-false}
-MASK_RATE=${4:-0}
-WITH_OR_WITHOUT_REF=${5:-with} #with or no
+LANG=${1:-python}
+top_k=${2:-5}
+WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
+SAVE_DIR=${4:-with} #with or no
 
 
-SPMDIR=/local/wasiahmad/codebart
-RETDIR=/local/rizwan/DPR_models/csnet
-SAVE_DIR="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/${LANG}_retrievd_from_${WITH_OR_WITHOUT_REF}_ref_top_${top_k}_mask_rate_${MASK_RATE}"
+SPMDIR=../sentencepiece
+RETDIR=../redcoder_data/
 mkdir -p $SAVE_DIR
+
 
 
 function prepare () {
 
 
-if [[ "$NO_CONCODE_VARS" = true ]]; then
-    EXTRA=" --NO_CONCODE_VARS "
-else
-    EXTRA=""
-fi
+EXTRA=""
 
 
 
@@ -31,7 +26,7 @@ for split in train valid test; do
         --split $split \
         --top_k $top_k \
         --out_dir $SAVE_DIR \
-        --mask_rate $MASK_RATE --WITH_OR_WITHOUT_REF $WITH_OR_WITHOUT_REF \
+        --WITH_OR_WITHOUT_REF $WITH_OR_WITHOUT_REF \
         $EXTRA;
 done
 

@@ -63,13 +63,13 @@ def main(args):
             for rank, ctx in enumerate(ex['ctxs']):
                 # if "test.json" not in ctx["id"] and target.strip()!=ctx["text"].strip(): #for retrieving without test corpus
                 if args.WITH_OR_WITHOUT_REF=="with":  #for retrieving without ref code but includes other codes in the test corpus
-                    source += ' _CODE_SEP_ ' + (ctx["text"])
+                    source += ' _CODE_SEP_ ' + ctx["text"].split('_NL_')[0].strip()
                     inserted+=1
                     if inserted>= args.top_k:
                         break
                 else:
-                    if target.strip() != ctx["text"].strip():
-                        source += ' _CODE_SEP_ ' + (ctx["text"])
+                    if target.strip() != ctx["text"].strip().split('_NL_')[0].strip():
+                        source += ' _CODE_SEP_ ' + ctx["text"].split('_NL_')[0].strip()
                         inserted += 1
                         if inserted >= args.top_k:
                             break

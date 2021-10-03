@@ -171,8 +171,8 @@ It is a json with the following format:
         "ctxs": [
             {
                 "id": "...", # passage id of the retrived candidates from CANDIDATE_FILE
-                "title": null,
-                "text": candidate code (for text->code); candidate text for (code->text), (for redcoder-ext this is: candidate _NL_ paired data)
+                "title": null, (for Concode, and for redcoder-ext this is: candidate's paired data)
+                "text": candidate code (for text->code); candidate text for (code->text), (for CodeXGLUE-CSNET, and for redcoder-ext this is: candidate _NL_ paired data)
                 "score": "...",  # retriever score
                 "has_answer": {true|false please ignore this as we did not process it}
      },
