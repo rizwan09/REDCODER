@@ -19,6 +19,6 @@ Our model has two parts. You can use them seperately as well.
 
 ## All REDCODER data/models/outputs together:
 - Exclude retrieval candidate embeddings(too large)
-- Exclude tokenized input to SCODE-G (by sentencepiece, we provide code and docs in ```SCODE-G``` directory. Please use them)
+- Exclude tokenized input to SCODE-G (by sentencepiece, we provide code and docs in ```SCODE-G``` directory. Please use them instead.)
 
 ```Coming Soon!```
