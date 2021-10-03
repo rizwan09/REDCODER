@@ -17,5 +17,8 @@ Our model has two parts. You can use them seperately as well.
 - SCODE-G: Summary and Code Generator. Please see instructions in ```./SCODE-G```.
 
 
-## All REDCODER data/models/outputs together except reteieval candidate embeddings(too large):
+## All REDCODER data/models/outputs together:
+- Exclude retrieval candidate embeddings(too large)
+- Exclude tokenized input to SCODE-G (by sentencepiece, we provide code and docs in ```SCODE-G``` directory. Please use them)
+
 ```Coming Soon!```
