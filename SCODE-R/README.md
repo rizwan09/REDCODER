@@ -27,7 +27,7 @@ Installation from the source. Python's virtual or Conda environments are recomme
 ```bash
 git clone https://github.com/rizwan09/REDCODER.git
 cd REDCODER/transformers-3.0.2
-pip install -e
+pip install -e .
 cd ../
 cd SCODE-R
 pip install -e .
