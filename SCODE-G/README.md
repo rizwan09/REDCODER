@@ -32,8 +32,9 @@ bash install_tools.sh
 
 
 ## SCODE-G input data format
-Our input is the output from the SCODE-R. (e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/java_csnet_pos_only_retrieval_dedup_test_30.json)
-It is a json with the following format:
+- Our input is the output from the SCODE-R. (e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/java_csnet_pos_only_retrieval_dedup_test_30.json)
+
+- It is a json with the following format:
 
 ```
 [
