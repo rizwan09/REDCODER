@@ -187,8 +187,7 @@ If you plan to use `SCODE-R` in your project, please consider citing [our paper]
 }
 ```
 ## Misc
-Our code is build upon modification of [DPR codebase](https://github.com/facebookresearch/DPR). 
-We thank the authors of DPR, Huggingface, Pytorch, and so on. 
+We thank the authors of PLABRT, Huggingface, Pytorch, and so on.
 
 ## License
 Redcoder MIT license. 

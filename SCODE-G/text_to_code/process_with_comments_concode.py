@@ -31,18 +31,6 @@ def main(args):
 
     print("topk: ", args.top_k, " args.UNION: ", args.UNION, flush=True)
 
-    def write(source1, target, src_writer=src_writer, tgt_writer=tgt_writer, source2=None):
-        source = re.sub("[\n\r\t ]+", " ", source1)
-        target = re.sub("[\n\r\t ]+", " ", target)
-        src_writer.write(source + '\n')
-        tgt_writer.write(target + '\n')
-
-        if source2:
-            src_writer.write(source2 + '\n')
-            tgt_writer.write(target + '\n')
-
-
-
     for idx, ex in enumerate(tqdm(retrieved_code, total=len(retrieved_code))):
 
         try:

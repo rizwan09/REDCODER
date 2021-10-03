@@ -31,17 +31,6 @@ def main(args):
 
     print("topk: ", args.top_k, " args.UNION: ", args.UNION, flush=True)
 
-    def write(source1, target, src_writer=src_writer, tgt_writer=tgt_writer, source2=None):
-        source = re.sub("[\n\r\t ]+", " ", source1)
-        target = re.sub("[\n\r\t ]+", " ", target)
-        src_writer.write(source + '\n')
-        tgt_writer.write(target + '\n')
-
-        if source2:
-            src_writer.write(source2 + '\n')
-            tgt_writer.write(target + '\n')
-
-
 
     for idx, ex in enumerate(tqdm(retrieved_code, total=len(retrieved_code))):
 
@@ -59,7 +48,7 @@ def main(args):
              source = source.split('concode_field_sep')[0]
         if args.top_k > 0:
             inserted =  0
-            # for rank, ctx in enumerate(ex['ctxs'][:args.top_k]):
+
             for rank, ctx in enumerate(ex['ctxs']):
                 # if "test.json" not in ctx["id"] and target.strip()!=ctx["text"].strip(): #for retrieving without test corpus
                 if args.WITH_OR_WITHOUT_REF=="with":  #for retrieving without ref code but includes other codes in the test corpus
@@ -92,15 +81,11 @@ if __name__ == '__main__':
     parser.add_argument("--split", required=True, choices=['train', 'valid', 'test'])
     parser.add_argument("--top_k", type=int, default=0, help='number of retrieved code to consider, -1 means only NL before concode_field_sep')
     parser.add_argument("--out_dir", required=True, help='directory path to save data')
-    parser.add_argument("--mask_rate", type=float, help='masking words ratio', default=0.15)
+    parser.add_argument("--mask_rate", type=float, help='masking words ratio', default=0.0)
     parser.add_argument("--NO_CONCODE_VARS", action="store_true", help='Do not use concode_filed_sep variables')
     parser.add_argument("--UNION", action="store_true", help='UNION of Retrieved and gold vars')
     parser.add_argument("--ONLY_RETRIEVAL", action="store_true", help='ONLY_RETRIEVED CODE will be used as source')
     parser.add_argument("--dag", action="store_true", help='ONLY_RETRIEVED CODE will be used as source')
     parser.add_argument("--WITH_OR_WITHOUT_REF", type=str, help='WITH_OR_WITHOUT_REF')
     args = parser.parse_args()
-    # print("args: ", flush=True)
-    # print("--"*50, flush=True)
-    # print(args, flush=True)
-    # print("--" * 50, flush=True)
     main(args)

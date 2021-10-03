@@ -4,22 +4,18 @@
 LANG=${1:-python}
 top_k=${2:-5}
 WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
-# use without for not ref which is no in other cases
+SAVE_DIR=${4:-with} #with or no
 
-SPMDIR=/local/wasiahmad/codebart
-RETDIR=/local/rizwan/DPR_models/csnet_with_comments
-SAVE_DIR="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet_with_comments/${LANG}_${WITH_OR_WITHOUT_REF}_ref_top_${top_k}"
+
+SPMDIR=../sentencepiece
+RETDIR=../redcoder_data/
 mkdir -p $SAVE_DIR
 
 
 function prepare () {
 
 
-if [[ "$NO_CONCODE_VARS" = true ]]; then
-    EXTRA=" --NO_CONCODE_VARS "
-else
-    EXTRA=""
-fi
+EXTRA=""
 
 
 

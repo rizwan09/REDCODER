@@ -52,9 +52,9 @@ In order to start training on one machine with multigpus:
 ```bash
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
-PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert/hf_codebert] as discussed above}
-TRAIN_FILE_PATH={train filepath e.g., CodeSearchNet/java or python/train.jsonl}
-DEV_FILE_PATH={dev filepath e.g., CodeSearchNet/java or python/dev.jsonl}
+PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert-base/hf_codebert-base] as discussed above e.g., ../redcoder_data/graphcodebert-base}
+TRAIN_FILE_PATH={train filepath e.g., ../redcoder_data/codexglue_csnet/java or python/train.jsonl}
+DEV_FILE_PATH={dev filepath e.g., ../redcoder_data/codexglue_csnet/java or python/dev.jsonl}
 OUTPUT_DIR={dir to save checkpoints specially the best one}
 
 CUDA_VISIBLE_DEVICES=${DEVICES} python -m torch.distributed.launch 
@@ -79,8 +79,10 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python -m torch.distributed.launch
 
 Notes:
 - We need to create the local filepath of the pretrained model. The reason is they are not defined in this earlier version of Huggingface Transformers.
-To create the local file for the pretrained model, please download: [[hf_graphcoderbert](https://huggingface.co/microsoft/graphcodebert-base)|[hf_codebert](https://huggingface.co/microsoft/codebert-base)]
-- The default setting is for code->text (code sum.) task. 
+To create the local file for the pretrained model, please download: [[hf_graphcoderbert-base](https://huggingface.co/microsoft/graphcodebert-base)|[hf_codebert-base](https://huggingface.co/microsoft/codebert-base)]
+To make it easy we also added it in our redcoder_data.
+
+- The default setting is for code->text (code sum.) task.
 - Use ```--text_to_code ``` for text->code (code gen) task.
 - For (CodeXGLUE-CSNET) dataset:
      - The best results are found by using graphcodebert encoder. ```--pretrained_model_cfg {local file path of hf_graphcoebert}```. 
@@ -99,12 +101,12 @@ To create the local file for the pretrained model, please download: [[hf_graphco
 ## SCODE-R candidate embedding
 
 ```bash
-CHECKPOINT={retirver best checkpint from previous step}
-CANDIDATE_FILE={java/python_dedupe_definitions_v2.pkl file path this file reasled with official CSNET}
+CHECKPOINT={retirver best checkpint from previous step e.g., ../redcoder_data/checkpint/codexglue_csnet_java or python_scoder_text_to_code.cp}
+CANDIDATE_FILE={retrieval database file path; this file releasled with official CSNET; e.g., ../redcoder_data/retrieval_database/java or python_dedupe_definitions_v2.pkl}
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
 ENCODDING_CANDIDATE_PREFIX = {OUTPUT DIR/encoddings_${candidate_file}}
-PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert/hf_codebert] as discussed above}
+PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert-base/hf_codebert-base] as discussed above}
           
 
 CUDA_VISIBLE_DEVICES=${DEVICES} python  -m torch.distributed.launch 
@@ -138,9 +140,9 @@ So far we support the following dataset format:
 
 ```bash
 TOP_K=200
-RETRIEVAL_RESULT_FILE={output file path like OUTPUT_DIR_PATH+split+_+${TOP_K}+_+{code_totext or text_to_code}+.json}
-CHECKPOINT={retirver best checkpint from previous step}
-CANDIDATE_FILE={java/python_dedupe_definitions_v2.pkl file path this file reasled with official CSNET}
+RETRIEVAL_RESULT_FILE={output file path like OUTPUT_DIR_PATH+split+_+${TOP_K}+_+{code_totext or text_to_code}+.json e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/python_csnet_pos_only_retrieval_dedup_test_30.json}
+CHECKPOINT={retirver best checkpint from first step e.g., ../redcoder_data/checkpint/codexglue_csnet_java or python_scoder_text_to_code.cp}
+CANDIDATE_FILE={java/python_dedupe_definitions_v2.pkl file path this file reasled with official CSNET e.g., ../redcoder_data/retrieval_database/java or python_dedupe_definitions_v2.pkl}
 ENCODDING_CANDIDATE_PREFIX = {OUTPUT DIR/encoddings_${candidate_file}}
 PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert/hf_codebert] as discussed above}
 FILE_FOR_WHICH_TO_RETIRVE={each of train/dev/test filepath e.g., CodeSearchNet/java or python/split.jsonl}
