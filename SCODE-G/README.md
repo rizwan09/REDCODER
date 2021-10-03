@@ -1,6 +1,6 @@
-# SCODE-R (Summary and CODE Retriever)
+# SCODE-G (Summary and CODE Generator)
 
-This is repository for the SCODE-R retriever in the [Retrieval Augmented Code Generation and Summarization](https://arxiv.org/abs/2108.11601) paper.
+This is repository for the SCODE-G generator in the [Retrieval Augmented Code Generation and Summarization](https://arxiv.org/abs/2108.11601) paper.
 
 If you find this paper or this code useful, please cite this paper:
 ```
@@ -32,11 +32,48 @@ bash install_tools.sh
 
 
 ## SCODE-G input data format
-Our input is the output from the SCODE-R.
+Our input is the output from the SCODE-R. (e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/java_csnet_pos_only_retrieval_dedup_test_30.json)
+It is a json with the following format:
+
+```
+[
+    {
+        "question": "This is input text (for text->code); code for (code->text)",
+        "answers": the target seq code (for text->code); text for (code->text),
+        "ctxs": [
+            {
+                "id": "...", # passage id of the retrived candidates from CANDIDATE_FILE
+                "title": null,
+                "text": candidate code (for text->code); candidate text for (code->text), (for redcoder-ext this is: candidate _NL_ paired data)
+                "score": "...",  # retriever score
+                "has_answer": {true|false please ignore this as we did not process it}
+     },
+]
+```
+
 
 ## SCODE-G for text to code:
-
+```bash
+cd SCODE-G/text_to_code
+```
 ### Input data pre-processing:
+- For CodeXGLUE-CSNET:
+```bash
+LANG={python/java}
+top_k={4/5}
+WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
+SAVE_DIR=${4:-with} #with or no
+
+bash prepare_csnet_with_comments.sh
+```
+- Notes:
+
+- For Concode:
+```bash
+
+```
+- Notes:
+
 
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# run: bash prepare.sh java 1 false false true &
+# run: bash prepare.sh java  false true &
 
 LANG=${1:-python}
 top_k=${2:-5}

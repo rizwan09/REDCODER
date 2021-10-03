@@ -178,8 +178,7 @@ It is a json with the following format:
      },
 ]
 ```
-Note:
-- 
+
 
 
 ## Reference
