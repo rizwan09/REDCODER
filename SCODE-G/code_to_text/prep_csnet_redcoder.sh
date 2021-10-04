@@ -5,13 +5,13 @@ export PYTHONIOENCODING=utf-8;
 SRCDIR=`pwd`
 CODE_DIR_HOME=`realpath ..`;
 
-top_k=${1:-30}
-LANG=${2:-python}
-WITH_WITHOUT_SUFFIX=${4:-with} # with or without
+LANG=${1:-python}
+top_k=${2:-5}
+WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
+RETDIR=${4:-../redcoder_data/retriever_output/codexglue_csnet_code_to_text/}
+SAVE_DIR=${5:-../redcoder_data/codexglue_csnet_code_to_text_scode-g-preprocessed-input/}
 
-SPMDIR=/local/wasiahmad/codebart
-RETDIR=/local/rizwan/DPR_models/csnet_dpr_code_text_output_with_codes
-SAVE_DIR="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet_code_text_with_codes_${LANG}/${WITH_WITHOUT_SUFFIX}_ref_top_${top_k}"
+SPMDIR=../sentencepiece
 mkdir -p $SAVE_DIR
 
 
@@ -27,7 +27,7 @@ for SPLIT in test train valid; do
 
         fi
         SRC_FIELD="question"
-        python encode_with_codes.py \
+        python encode.py \
             --top_k $top_k \
             --WITH_WITHOUT_SUFFIX $WITH_WITHOUT_SUFFIX \
             --model-file ${SPMDIR}/sentencepiece.bpe.model \

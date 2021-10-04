@@ -2,13 +2,12 @@
 # run: bash prepare.sh java 1 false false true &
 
 LANG=${1:-java}
-top_k=${2:-10}
-WITH_OR_WITHOUT_REF=${3:-with} #with or no
-SAVE_DIR=${4:-with} #with or no
-
+top_k=${2:-5}
+WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
+RETDIR=${4:-../redcoder_data/retriever_output/concode/}
+SAVE_DIR=${5:-../redcoder_data/concode_scode-g-preprocessed-input/}
 
 SPMDIR=../sentencepiece
-RETDIR=../redcoder_data/
 mkdir -p $SAVE_DIR
 
 function prepare () {
@@ -35,7 +34,7 @@ function spm_preprocess () {
 
 LANG=$1
 for SPLIT in train valid test; do
-#    if [[ ! -f $SAVE_DIR/${SPLIT}.spm.$LANG ]]; then
+    if [[ ! -f $SAVE_DIR/${SPLIT}.spm.$LANG ]]; then
         python encode.py \
             --model_file $SPMDIR/sentencepiece.bpe.model \
             --input_source $SAVE_DIR/$SPLIT.source \
@@ -44,7 +43,7 @@ for SPLIT in train valid test; do
             --output_target $SAVE_DIR/${SPLIT}.spm.$LANG \
             --max_len 510 \
             --workers 60;
-#    fi
+    fi
 done
 
 }
@@ -52,7 +51,7 @@ done
 function binarize () {
 
 LANG=$1
-#if [[ ! -d $SAVE_DIR/data-bin ]]; then
+if [[ ! -d $SAVE_DIR/data-bin ]]; then
     fairseq-preprocess \
         --source-lang en_XX \
         --target-lang $LANG \
@@ -65,7 +64,7 @@ LANG=$1
         --workers 60 \
         --srcdict ${SPMDIR}/dict.txt \
         --tgtdict ${SPMDIR}/dict.txt;
-#fi
+fi
 
 }
 

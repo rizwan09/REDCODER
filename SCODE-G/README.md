@@ -36,6 +36,7 @@ bash install_tools.sh
 
 - It is a json with the following format:
 
+
 ```
 [
     {
@@ -44,8 +45,8 @@ bash install_tools.sh
         "ctxs": [
             {
                 "id": "...", # passage id of the retrived candidates from CANDIDATE_FILE
-                "title": null,
-                "text": candidate code (for text->code); candidate text for (code->text), (for redcoder-ext this is: candidate _NL_ paired data)
+                "title": null, (for Concode with redcoder-ext this is: candidate's paired data)
+                "text": candidate code (for text->code); candidate text for (code->text), (for CodeXGLUE-CSNET, and for redcoder-ext this is: candidate _NL_ paired data)
                 "score": "...",  # retriever score
                 "has_answer": {true|false please ignore this as we did not process it}
      },
@@ -60,25 +61,62 @@ cd SCODE-G/text_to_code
 ### Input data pre-processing:
 - For CodeXGLUE-CSNET:
 ```bash
-LANG={python/java}
-top_k={5 for java; 4 for python}
-WITH_OR_WITHOUT_REF={with} #with for filtering the
-SAVE_DIR={Output directory} #with or no
+LANG={language java/python}
+top_k={top-K candidates e.g., 4 for java 5 for python}
+WITH_OR_WITHOUT_REF={with/no} # with mean keeping the target if retrieved as a candidate no means filtering target from retrieval
+RETDIR={reteved output/input to SCODE-G directory  e.g., /redcoder_data/retriever_output/codexglue_csnet_text_to_code/}
+SAVE_DIR={preprocssed output directory e.g., ../redcoder_data/codexglue_csnet_text_to_code_scode-g-preprocessed-input/}
 
-bash prepare_csnet_with_comments.sh ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF}
+
+
+bash {prepare_csnet_redcoder_ext.sh|prepare_csnet_redcoder.sh} ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF} ${RETDIR} ${SAVE_DIR}
 ```
 - Notes:
+    - The retrieved directory $RETDIR should have files like  ${RETDIR}/${LANG}_csnet_pos_only_retrieval_dedup_${split}_30.json
+    - For REDCODER: use ```prepare_csnet_redcoder.sh``` and for RECODER_ext  use ```prepare_csnet_redcoder_ext.sh```.
 
 - For Concode:
 ```bash
+LANG=java #must be java for Concode
+top_k={top-K candidates e.g., 4 for java 5 for python}
+WITH_OR_WITHOUT_REF={with/no} # with mean keeping the target if retrieved as a candidate no means filtering target from retrieval
+RETDIR={reteved output/input to SCODE-G directory  e.g., /redcoder_data/retriever_output/cooncode/}
+SAVE_DIR={preprocssed output directory e.g., ../redcoder_data/concode_scode-g-preprocessed-input/}
 
+
+
+bash {prepare_concode_redcoder_ext.sh|prepare_concode_redcoder.sh} ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF} ${RETDIR} ${SAVE_DIR}
 ```
 - Notes:
-
+    - The retrieved directory $RETDIR should have files like  $RETDIR/${split}_20.json
+    - For REDCODER: use ```prepare_concode_redcoder.sh``` and for RECODER_ext  use ```prepare_concode_redcoder_ext.sh```.
 
 
 
 ## SCODE-G for code to text:
+
+```bash
+cd SCODE-G/code_to_text
+```
+### Input data pre-processing:
+- Currently we only support CodeXGLUE-CSNET:
+```bash
+LANG={language java/python}
+top_k={top-K candidates e.g., 4 for java 5 for python}
+WITH_OR_WITHOUT_REF={with/no} # with mean keeping the target if retrieved as a candidate no means filtering target from retrieval
+RETDIR={reteved output/input to SCODE-G directory  e.g., /redcoder_data/retriever_output/codexglue_csnet_code_to_text/}
+SAVE_DIR={preprocssed output directory e.g., ../redcoder_data/codexglue_csnet_code_to_text_scode-g-preprocessed-input/}
+
+
+
+bash {prepare_csnet_redcoder_ext.sh|prepare_csnet_redcoder.sh} ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF} ${RETDIR} ${SAVE_DIR}
+```
+- Notes:
+    - The retrieved directory $RETDIR should have files like  $RETDIR/${LANG}_csnet_code_text_retrieval_dedup_${SPLIT}_100.json
+    - For REDCODER: use ```prepare_csnet_redcoder.sh``` and for RECODER_ext  use ```prepare_csnet_redcoder_ext.sh```.
+
+
+
 
 ## Retriever training
 Retriever training quality depends on its effective batch size. The one reported in the paper used 2/3/4 x 12GB GPUs.

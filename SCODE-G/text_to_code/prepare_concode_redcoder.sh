@@ -4,11 +4,11 @@
 LANG=${1:-python}
 top_k=${2:-5}
 WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
-SAVE_DIR=${4:-with} #with or no
+RETDIR=${4:-../redcoder_data/retriever_output/concode}
+SAVE_DIR=${5:-../redcoder_data/concode_scode-g-output-dir} #with or no
 
 
 SPMDIR=../sentencepiece
-RETDIR=../redcoder_data/
 mkdir -p $SAVE_DIR
 
 function prepare () {
@@ -20,7 +20,7 @@ EXTRA=""
 
 for split in train valid test; do
     python process.py \
-        --retrieved_code_file $RETDIR/${split}_100.json \
+        --retrieved_code_file $RETDIR/${split}_20.json \
         --split $split \
         --top_k $top_k \
         --out_dir $SAVE_DIR \

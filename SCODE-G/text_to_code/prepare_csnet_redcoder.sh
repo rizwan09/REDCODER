@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 # run: bash prepare.sh java 1 false false true &
 
+
 LANG=${1:-python}
 top_k=${2:-5}
 WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not this file) so they are same here,
-SAVE_DIR=${4:-with} #with or no
+RETDIR=${4:-../redcoder_data/retriever_output/codexglue_csnet_text_to_code/}
+SAVE_DIR=${5:-../redcoder_data/codexglue_csnet_text_to_code_scode-g-preprocessed-input/}
 
 
 SPMDIR=../sentencepiece
-RETDIR=../redcoder_data/
 mkdir -p $SAVE_DIR
-
-
 
 function prepare () {
 
