@@ -163,9 +163,7 @@ bash run_csnet.sh ${GPU} ${LANG} ${path_2_data} ${PRETRAIN} ${SAVE_DIR}
 - According to [fairseq](https://github.com/pytorch/fairseq), effective batch size is equal
 to:
 ```
-<p align="center">
-  <b>PER_GPU_TRAIN_BATCH_SIZE * NUM_GPU * UPDATE_FREQ</b>
-</p>
+PER_GPU_TRAIN_BATCH_SIZE * NUM_GPU * UPDATE_FREQ
 ```
 - ${UPDATE_FREQ}, ${BATCH_SIZE}, and ${USE_PLBART} are optional as their default values are 8, 4 and True respectively.
 - The train/valid/test splits should be preprocessed in ```${path_2_data}```(as in step-2). For example, test split should be like: ```${path_2_data}/test.source``` and ```${path_2_data}/test.target```.
@@ -203,9 +201,7 @@ bash run_csnet.sh ${GPU} ${SOURCE} ${PATH_2_DATA} ${PRETRAIN} ${SAVE_DIR}
 - According to [fairseq](https://github.com/pytorch/fairseq), effective batch size is equal
 to:
 ```
-<p align="center">
-  <b>PER_GPU_TRAIN_BATCH_SIZE * NUM_GPU * UPDATE_FREQ</b>
-</p>
+PER_GPU_TRAIN_BATCH_SIZE * NUM_GPU * UPDATE_FREQ
 ```
 - ${UPDATE_FREQ} and ${BATCH_SIZE}  are optional as their default values are 8, and 16  respectively.
 - The train/valid/test splits should be preprocessed in ```${PATH_2_DATA}``` (as in step-2). For example, test split should be like: ```${PATH_2_DATA}/test.source``` and ```${PATH_2_DATA}/test.target```.
