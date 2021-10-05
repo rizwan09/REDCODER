@@ -6,7 +6,7 @@ If you find this paper or this code useful, please cite this paper:
 ```
 @inproceedings{parvez2021retrieval,
   title = {Retrieval Augmented Code Generation and Summarization},
-  author = {Parvez, Md Rizwan and Ahmad, Wasi and Chakraborty, Saikat and Ray, Baishakhi and Chang, Kai-Wei},
+  author = {Parvez, Md Rizwan and Ahmad, Wasi Uddin, and Chakraborty, Saikat and Ray, Baishakhi and Chang, Kai-Wei},
   booktitle = {EMNLP-Findings},
   year = {2021}
 }
@@ -189,7 +189,7 @@ If you plan to use `SCODE-R` in your project, please consider citing [our paper]
 ```
 @inproceedings{parvez2021retrieval,
   title = {Retrieval Augmented Code Generation and Summarization},
-  author = {Parvez, Md Rizwan and Ahmad, Wasi and Chakraborty, Saikat and Ray, Baishakhi and Chang, Kai-Wei},
+  author = {Parvez, Md Rizwan and Ahmad, Wasi Uddin, and Chakraborty, Saikat and Ray, Baishakhi and Chang, Kai-Wei},
   booktitle = {EMNLP-Findings},
   year = {2021}
 }
