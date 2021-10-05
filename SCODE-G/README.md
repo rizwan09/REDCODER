@@ -168,7 +168,7 @@ to:
 </p>
 ```
 - ${UPDATE_FREQ}, ${BATCH_SIZE}, and ${USE_PLBART} are optional as their default values are 8, 4 and True respectively.
-- The train/valid/test splits should be preprocessed in ```${path_2_data}```. For example, test split should be like: ```${path_2_data}/test.source``` and ```${path_2_data}/test.target```.
+- The train/valid/test splits should be preprocessed in ```${path_2_data}```(as in step-2). For example, test split should be like: ```${path_2_data}/test.source``` and ```${path_2_data}/test.target```.
 - ```run_csnet.sh``` file can handle both REDCODER and REDCODER-ext, just the ```${path_2_data}``` should be provided accordingly.
 
 
@@ -208,7 +208,7 @@ to:
 </p>
 ```
 - ${UPDATE_FREQ} and ${BATCH_SIZE}  are optional as their default values are 8, and 16  respectively.
-- The train/valid/test splits should be preprocessed in ```${PATH_2_DATA}```. For example, test split should be like: ```${PATH_2_DATA}/test.source``` and ```${PATH_2_DATA}/test.target```.
+- The train/valid/test splits should be preprocessed in ```${PATH_2_DATA}``` (as in step-2). For example, test split should be like: ```${PATH_2_DATA}/test.source``` and ```${PATH_2_DATA}/test.target```.
 - ```run_csnet.sh``` file can handle both REDCODER and REDCODER-ext, just the ```${PATH_2_DATA}``` should be provided accordingly.
 
 
