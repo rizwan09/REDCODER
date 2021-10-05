@@ -7,7 +7,7 @@ WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not 
 RETDIR=${4:-../redcoder_data/retriever_output/concode/}
 SAVE_DIR=${5:-../redcoder_data/concode_scode-g-preprocessed-input/}
 
-SPMDIR=../sentencepiece
+SPMDIR=../../sentencepiece
 mkdir -p $SAVE_DIR
 
 function prepare () {

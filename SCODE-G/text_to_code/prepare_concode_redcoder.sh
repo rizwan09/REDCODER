@@ -8,7 +8,7 @@ RETDIR=${4:-../redcoder_data/retriever_output/concode}
 SAVE_DIR=${5:-../redcoder_data/concode_scode-g-output-dir} #with or no
 
 
-SPMDIR=../sentencepiece
+SPMDIR=../../sentencepiece
 mkdir -p $SAVE_DIR
 
 function prepare () {

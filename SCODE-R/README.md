@@ -32,6 +32,8 @@ cd ../
 cd SCODE-R
 pip install -e .
 ```
+Install [apex](https://github.com/nvidia/apex#quick-start) for fp16 training.
+
 
 DPR is tested on Python 3.6+, PyTorch 1.7.1+ and with Huggingface Transformers 3.0.2 (added in the [root dir](https://github.com/rizwan09/REDCODER/tree/main/transformers-3.0.2_alignment_proj))
 DPR relies on third-party libraries for encoder code implementations.

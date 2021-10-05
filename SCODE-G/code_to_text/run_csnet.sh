@@ -21,34 +21,32 @@ done
 
 
 
-SOURCE=${1:-java}
-TARGET=en_XX
-top_k=${2:-30}
-WITH_WITHOUT_SUFFIX=${3:-without}
-GPU=${4:-6}
 
+
+
+
+SPM_MODEL=CODE_DIR_HOME/sentencepiece/sentencepiece.bpe.model
+
+GPU=${1:-2}
+SOURCE=${2:-java}
+PATH_2_DATA=${3:-../redcoder_data/codexglue_csnet_code_to_text_scode-g-preprocessed-input/}
+PRETRAIN=${4:-./checkpoint_11_100000.pt}
+SAVE_DIR=${5:-../redcoder_data/codexglue_csnet_code_to_text_scode-g-output/}
+UPDATE_FREQ=${6:-8}
+BATCH_SIZE=${7:-16}
+
+TARGET=en_XX
+
+mkdir -p $SAVE_DIR
 
 export CUDA_VISIBLE_DEVICES=$GPU
 
-PRETRAINED_CP_NAME=checkpoint_11_100000.pt
-
-PRETRAIN=/local/wasiahmad/codebart/checkpoints/${PRETRAINED_CP_NAME}
-PATH_2_DATA=/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet_code_text_${SOURCE}/${WITH_WITHOUT_SUFFIX}_ref_top_${top_k}/data-bin
-PATH_2_DATA=/local/rizwan/workspace/projects/RaProLanG/data/plbart/retrieve_csenet_parallel_only_csnet_code_text_${SOURCE}/${WITH_WITHOUT_SUFFIX}_ref_top_${top_k}/data-bin
-SPM_MODEL=/local/wasiahmad/codebart/sentencepiece.bpe.model
 
 echo "Source: $SOURCE Target: $TARGET"
 
-SAVE_DIR=/local/rizwan/workspace/projects/RaProLanG/csnet_code_text_${SOURCE}/${SOURCE}_${TARGET}_${WITH_WITHOUT_SUFFIX}_${top_k}
-mkdir -p ${SAVE_DIR}
 
-if [[ "$SOURCE" =~ ^(ruby|javascript|go|php|c)$ ]]; then
-    USER_DIR="--user-dir "${CODE_DIR_HOME}/FID
-    TASK=translation_in_same_language
-else
-    USER_DIR=""
-    TASK=translation_from_pretrained_bart
-fi
+USER_DIR=""
+TASK=translation_from_pretrained_bart
 
 
 
@@ -60,7 +58,7 @@ function fine_tune () {
   		--langs $langs --arch mbart_base --layernorm-embedding \
   		--task $TASK --source-lang $SOURCE --target-lang $TARGET \
   		--criterion label_smoothed_cross_entropy --label-smoothing 0.2 \
-  		--batch-size 16 --update-freq 2 --max-epoch 15 \
+  		--batch-size ${BATCH_SIZE} --update-freq ${UPDATE_FREQ} --max-epoch 15 \
   		--optimizer adam --adam-eps 1e-06 --adam-betas '(0.9, 0.98)' \
   		--lr-scheduler polynomial_decay --lr 5e-05 --min-lr -1 \
   		--warmup-updates 1000 --max-update 200000 \
@@ -93,8 +91,7 @@ function generate () {
 	cat $FILE_PREF | grep -P "^T" |sort -V |cut -f 2- | sed 's/\[${TARGET}\]//g' > $FILE_PREF.ref
 	sacrebleu -tok 'none' -s 'none' $FILE_PREF.ref < $FILE_PREF.hyp 2>&1 | tee ${RESULT_FILE}
 
-	gold_ref=$FILE_PREF.ref
-#	gold_ref=local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/python_DPR_RET_CODE_1_NO_NL/test.target #but first run->bash prepare_dpr_evalaute.sh
+	gold_ref=$FILE_PREF.ref #ideal practice is: this should be ${PATH_2_DATA}/test.target but this should be similar in performance I followed from previous work and did not change.
 
 	printf "CodeXGlue Blue-4 Evaluation: \t" >> ${RESULT_FILE}
 	python evaluator.py $gold_ref $FILE_PREF.hyp >> ${RESULT_FILE}

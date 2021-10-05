@@ -119,18 +119,18 @@ RESULT_FILE=${SAVE_DIR}/result.txt;
 GOUND_TRUTH_PATH="${path_2_data}/test.target";
 model_path=$SAVE_DIR
 
-#fairseq-generate "${path_2_data}/data-bin" \
-#    --fp16 \
-#    --path ${model_path}/checkpoint_best.pt \
-#    --task $task \
-#    --langs $langs \
-#    --gen-subset test \
-#    --source-lang en_XX \
-#    --target-lang $LANG \
-#    --sacrebleu \
-#    --remove-bpe 'sentencepiece'\
-#    --batch-size 32 \
-#    --beam 10 > ${FILE_PREF};
+fairseq-generate "${path_2_data}/data-bin" \
+    --fp16 \
+    --path ${model_path}/checkpoint_best.pt \
+    --task $task \
+    --langs $langs \
+    --gen-subset test \
+    --source-lang en_XX \
+    --target-lang $LANG \
+    --sacrebleu \
+    --remove-bpe 'sentencepiece'\
+    --batch-size 32 \
+    --beam 10 > ${FILE_PREF};
 
 
 cat $FILE_PREF | grep -P "^H" |sort -V |cut -f 3- > $FILE_PREF.hyp;

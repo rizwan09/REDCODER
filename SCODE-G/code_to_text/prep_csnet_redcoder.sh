@@ -11,7 +11,7 @@ WITH_OR_WITHOUT_REF=${3:-with} #no or with are saved and used processed.py (not 
 RETDIR=${4:-../redcoder_data/retriever_output/codexglue_csnet_code_to_text/}
 SAVE_DIR=${5:-../redcoder_data/codexglue_csnet_code_to_text_scode-g-preprocessed-input/}
 
-SPMDIR=../sentencepiece
+SPMDIR=../../sentencepiece
 mkdir -p $SAVE_DIR
 
 

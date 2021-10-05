@@ -12,30 +12,28 @@ CODE_DIR_HOME=`realpath ..`;
 
 USER_NAME=`whoami`
 
-PRETRAINED_MODEL_NAME=checkpoint_11_100000.pt
-PRETRAIN=/local/wasiahmad/codebart/checkpoints/${PRETRAINED_MODEL_NAME}
-
-SPM_MODEL=/local/wasiahmad/codebart/sentencepiece.bpe.model
+SPM_MODEL=CODE_DIR_HOME/sentencepiece/sentencepiece.bpe.model
 langs=java,python,en_XX #,go,php,ruby,javascript
+
+task=translation_from_pretrained_bart
 
 GPU=${1:-2}
 LANG=${2:-"python"}
-USE_PLBART=${3:-true}
-WITH_OR_WITHOUT_REF=${4:-no} #with or no
-TOP_K=${4:-4}
-task=translation_from_pretrained_bart
+path_2_data=${3:-../redcoder_data/codexglue_csnet_text_to_code_scode-g-preprocessed-input/}
+PRETRAIN=${4:-./checkpoint_11_100000.pt}
+SAVE_DIR=${5:-../redcoder_data/codexglue_csnet_text_to_code_scode-g-output/}
+UPDATE_FREQ=${6:-8}
+BATCH_SIZE=${7:-4}
+USE_PLBART=${8:-true}
 
+mkdir -p $SAVE_DIR
 
-path_2_data="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/${LANG}_retrievd_from_${WITH_OR_WITHOUT_REF}_ref_top_${TOP_K}_mask_rate_0/"
-#path_2_data="/local/rizwan/workspace/projects/RaProLanG/data/plbart/csnet/${LANG}_retrievd_from_${WITH_OR_WITHOUT_REF}_ref_top_${TOP_K}"
 evaluator_script="${CODE_DIR_HOME}/evaluation_scripts/evaluator.py";
 codebleu_path="${CODE_DIR_HOME}/evaluation_scripts/CodeBLEU";
 
 export CUDA_VISIBLE_DEVICES=$GPU
 
-# we assume we will run this experiments in 2 GPUs with bsz 32 (use more GPUs for higher batch sizes)
-BATCH_SIZE=4
-UPDATE_FREQ=8
+
 
 # read the split words into an array based on comma delimiter
 IFS=',' read -a GPU_IDS <<< "$GPU"
@@ -60,15 +58,12 @@ WARMUP['ruby']=1000
 EXTRA_PARAM=""
 if [[ "$USE_PLBART" = true ]]; then
     EXTRA_PARAM="--restore-file $PRETRAIN --reset-optimizer --reset-meters --reset-dataloader --reset-lr-scheduler"
-    MODEL_DIR_NAME="plbart-codexglue-csnet-${LANG}-with-top-${TOP_K}-retrived-from-${WITH_OR_WITHOUT_REF}-ref-no-mask"
 else
-    MODEL_DIR_NAME="transformer-ori_top_1_masked"
+    echo "finetuning from scratch without PLBART"
 fi
 
 
-MODEL_DIR_NAME=${MODEL_DIR_NAME}-${LANG}-ms${MAX_UPDATE}-wu${WARMUP[${LANG}]}-bsz${BSZ}
-SAVE_DIR=/local/rizwan/workspace/projects/RaProLanG/${MODEL_DIR_NAME}
-mkdir -p $SAVE_DIR
+
 
 function train () {
 
