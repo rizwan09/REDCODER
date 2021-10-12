@@ -45,7 +45,10 @@ Due to generality of the tokenization process, DPR uses Huggingface tokenizers a
 
 ## SCODE-R input data format
 We support the datsets Concode, Conala, and the CodeXGLUE-CSNET (jsonl) formateted dataset. 
-The corresponding data read and pre-processing codes are provided [here](https://github.com/rizwan09/REDCODER/blob/main/DPR-master-with-redocder-scripts/dpr/utils/data_utils.py).
+The corresponding data read and pre-processing codes are provided (i) reading training time  [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dpr/utils/data_utils.py#L130).
+(ii) reading during Encodding the candidates [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/generate_dense_embeddings.py#L119)
+(iii) a: Inference time question file  [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dense_retriever.py#L99),
+b: inference time candidate file reading [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dense_retriever.py#L99)
 Below for each datset, we provide the execution commands.
 
 ## SCODE-R training
@@ -54,7 +57,7 @@ In order to start training on one machine with multigpus:
 ```bash
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
-PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert-base/hf_codebert-base] as discussed above e.g., ../redcoder_data/graphcodebert-base}
+PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert-base/hf_codebert-base] as discussed below e.g., ../redcoder_data/graphcodebert-base}
 TRAIN_FILE_PATH={train filepath e.g., ../redcoder_data/codexglue_csnet/java or python/train.jsonl}
 DEV_FILE_PATH={dev filepath e.g., ../redcoder_data/codexglue_csnet/java or python/dev.jsonl}
 OUTPUT_DIR={dir to save checkpoints specially the best one}
