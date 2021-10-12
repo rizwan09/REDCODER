@@ -43,15 +43,15 @@ Due to generality of the tokenization process, DPR uses Huggingface tokenizers a
 
 
 
-## SCODE-R input data format
+## SCODE-R input data format (if you want to know)
 We support the datsets Concode, Conala, and the CodeXGLUE-CSNET (jsonl) formateted dataset. 
 The corresponding data read and pre-processing codes are provided (i) reading training time  [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dpr/utils/data_utils.py#L130).
-(ii) reading during Encodding the candidates [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/generate_dense_embeddings.py#L119)
+(ii) reading during Encodding the candidates [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/generate_dense_embeddings.py#L119).
 (iii) a: Inference time question file  [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dense_retriever.py#L99),
-b: inference time candidate file reading [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dense_retriever.py#L99)
+b: inference time candidate file reading [here](https://github.com/rizwan09/REDCODER/blob/main/SCODE-R/dense_retriever.py#L99). The reading should similar to the reading of step as (ii).
 Below for each datset, we provide the execution commands.
 
-## SCODE-R training
+## Step-1: SCODE-R training
 Retriever training quality depends on its effective batch size. The one reported in the paper used 2/3/4 x 12GB GPUs.
 In order to start training on one machine with multigpus:
 ```bash
@@ -103,7 +103,7 @@ To make it easy we also added it in our redcoder_data.
         - For (NL -> Code) do not use this ```--concode_with_code``` flag.
 
 
-## SCODE-R candidate embedding
+## Step-2: SCODE-R candidate embedding
 
 ```bash
 CHECKPOINT={retirver best checkpint from previous step e.g., ../redcoder_data/checkpint/codexglue_csnet_java or python_scoder_text_to_code.cp}
@@ -141,7 +141,7 @@ So far we support the following dataset format:
 - For code->text we use use the same candidate_file or in our paper we retrieved from a collection: CoeXGLUE-CSNET(trainsets)+[C_summarization dataset](https://openreview.net/pdf?id=zv-typ1gPxA)
 
 
-## SCODE-R inference (retrieve):
+## Step-3: SCODE-R inference (retrieve):
 
 ```bash
 TOP_K=200
