@@ -20,4 +20,4 @@ Our model has two parts. You can use them seperately as well.
 ## All REDCODER data/models/outputs together:
 - Exclude retrieval candidate embeddings(too large)
 - Exclude tokenized input to SCODE-G (by sentencepiece, we provide code and docs in ```SCODE-G``` directory. Please use them instead.)
-- Please go through this [issue](https://github.com/rizwan09/REDCODER/issues/1)
+- Please go through issues specially this [issue](https://github.com/rizwan09/REDCODER/issues/1)
