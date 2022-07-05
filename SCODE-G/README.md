@@ -103,7 +103,7 @@ bash {prepare_concode_redcoder_ext.sh|prepare_concode_redcoder.sh} ${LANG} ${top
 
 ```
 - Notes:
-    - The retrieved directory $RETDIR should have files like  $RETDIR/${split}_20.json
+    - The retrieved directory ${RETDIR} should contain files like  ${RETDIR}/${split}_20.json
     - For REDCODER: use ```prepare_concode_redcoder.sh``` and for RECODER-ext:  use ```prepare_concode_redcoder_ext.sh```.
 
 
