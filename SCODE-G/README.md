@@ -128,8 +128,8 @@ bash {prepare_csnet_redcoder_ext.sh|prepare_csnet_redcoder.sh} ${LANG} ${top_k} 
 ```
 - Notes:
     - The retrieved directory ```${RETDIR}``` 
-    should have files like  
-    ``\${RETDIR}/${LANG}_csnet_code_text_retrieval_dedup_${SPLIT}_100.json``
+    should contain files like  
+    -- ```\${RETDIR}/${LANG}_csnet_code_text_retrieval_dedup_${SPLIT}_100.json``
     
     - For REDCODER: use ```prepare_csnet_redcoder.sh``` and for RECODER-ext:  use ```prepare_csnet_redcoder_ext.sh```.
 
