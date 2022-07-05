@@ -86,7 +86,9 @@ SAVE_DIR={preprocssed output directory e.g., ../redcoder_data/codexglue_csnet_te
 bash {prepare_csnet_redcoder_ext.sh|prepare_csnet_redcoder.sh} ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF} ${RETDIR} ${SAVE_DIR}
 ```
 - Notes:
-    - The retrieved directory ${RETDIR} should have files like  ${RETDIR}/${LANG}_csnet_pos_only_retrieval_dedup_${split}_30.json
+    - The retrieved directory ${RETDIR} should have files like  
+      * ${RETDIR}/${LANG}_csnet_pos_only_retrieval_dedup_${split}_30.json
+      
     - For REDCODER: use ```prepare_csnet_redcoder.sh``` and for RECODER_ext  use ```prepare_csnet_redcoder_ext.sh```.
 
 - For Concode:
@@ -129,7 +131,7 @@ bash {prepare_csnet_redcoder_ext.sh|prepare_csnet_redcoder.sh} ${LANG} ${top_k} 
 - Notes:
     - The retrieved directory ```${RETDIR}``` 
     should contain files like  
-        - ```\${RETDIR}/${LANG}_csnet_code_text_retrieval_dedup_${SPLIT}_100.json``
+      *  ```\${RETDIR}/${LANG}_csnet_code_text_retrieval_dedup_${SPLIT}_100.json```
     
     - For REDCODER: use ```prepare_csnet_redcoder.sh``` and for RECODER-ext:  use ```prepare_csnet_redcoder_ext.sh```.
 
@@ -168,7 +170,7 @@ to:
 ```
 PER_GPU_TRAIN_BATCH_SIZE * NUM_GPU * UPDATE_FREQ
 ```
-- ${UPDATE_FREQ}, ${BATCH_SIZE}, and ${USE_PLBART} are optional as their default values are 8, 4 and True respectively.
+- ${UPDATE\_FREQ}, ${BATCH\_SIZE}, and ${USE\_PLBART} are optional as their default values are 8, 4 and True respectively.
 - The train/valid/test splits should be preprocessed in ```${path_2_data}```(as in step-2). For example, test split should be like: ```${path_2_data}/test.source``` and ```${path_2_data}/test.target```.
 - ```run_csnet.sh``` file can handle both REDCODER and REDCODER-ext, just the ```${path_2_data}``` should be provided accordingly.
 
