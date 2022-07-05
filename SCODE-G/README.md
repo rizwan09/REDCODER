@@ -86,7 +86,7 @@ SAVE_DIR={preprocssed output directory e.g., ../redcoder_data/codexglue_csnet_te
 bash {prepare_csnet_redcoder_ext.sh|prepare_csnet_redcoder.sh} ${LANG} ${top_k} ${WITH_OR_WITHOUT_REF} ${RETDIR} ${SAVE_DIR}
 ```
 - Notes:
-    - The retrieved directory $RETDIR should have files like  ${RETDIR}/${LANG}_csnet_pos_only_retrieval_dedup_${split}_30.json
+    - The retrieved directory ${RETDIR} should have files like  ${RETDIR}/${LANG}_csnet_pos_only_retrieval_dedup_${split}_30.json
     - For REDCODER: use ```prepare_csnet_redcoder.sh``` and for RECODER_ext  use ```prepare_csnet_redcoder_ext.sh```.
 
 - For Concode:
