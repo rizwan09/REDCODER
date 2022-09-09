@@ -1,6 +1,8 @@
-MIT License
+Modified MIT License
 
 Copyright (c) 2021 Md Rizwan Parvez
+
+This code uses underlying codebases like DPR which has different License such as non-commercial usgae. Please be awarev of that when using this software.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
