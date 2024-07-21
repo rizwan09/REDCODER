@@ -1,3 +1,9 @@
+
+# News
+- 🎉 Our new paper [MapCoder](https://raw.githubusercontent.com/Md-Ashraful-Pramanik/MapCoder/) got accepted on [ACL 2024](https://2024.aclweb.org/).
+- All our codebase in both Redcoder and MapCoder is open-sourced with MIT License.
+- 
+
 # REDCODER (Retrieval augmentED CODe gEneration and summaRization)
 
 This is repository for the SCODE-R retriever in the [Retrieval Augmented Code Generation and Summarization](https://arxiv.org/abs/2108.11601) paper.
