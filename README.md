@@ -1,6 +1,6 @@
 
 # News
-- 🎉 Our new paper [MapCoder](https://raw.githubusercontent.com/Md-Ashraful-Pramanik/MapCoder/) got accepted on [ACL 2024](https://2024.aclweb.org/).
+- 🎉 Our new paper [MapCoder](https://raw.githubusercontent.com/Md-Ashraful-Pramanik/MapCoder/) got accepted in [ACL 2024](https://2024.aclweb.org/).
 - All our codebase in both MapCoder and Redcoder are open-sourced with MIT and Modified MIT License.
 - See you at ACL, 2024, Bangkok, Thailand. 
 
