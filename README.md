@@ -27,5 +27,10 @@ Our model has two parts. You can use them seperately as well.
 - Exclude retrieval candidate embeddings(too large)
 - Exclude tokenized input to SCODE-G (by sentencepiece, we provide code and docs in ```SCODE-G``` directory. Please use them instead.)
 - Please go through issues specially this [issue](https://github.com/rizwan09/REDCODER/issues/1)
-- Sample SCODE-R output: [code to text valid split top 30 k retrievals](https://drive.google.com/file/d/1OZHQWajhq4F4TVs7Oiqmze_MK4XZoC_N/view?usp=drive_web)
-- Finetuned SCODE-R checkpoints w/ all the above retrieval database and sample outputs together: [LINK](https://drive.google.com/drive/folders/1qrt6DkJKp43TNN_wCTVCP98BOtD-9o9J?usp=sharing)
+- Sample SCODE-R output: [code to text valid split top 30 k retrievals](https://drive.google.com/file/d/1ktOoJc0uRG7TqfYDI0OZlsLpMnRjEmLl/view?usp=sharing)
+- Finetuned SCODE-R checkpoints:
+  - Code2Text Python: [Link](https://drive.google.com/file/d/13-5wAHvNQwPifiODnpFYUFJpK-8NHtWt/view?usp=sharing)
+  - Text2Code Python: [Link](https://drive.google.com/file/d/1-YWPicpjynkC2sa8Mo02MhFiSvkV3ThJ/view?usp=sharing)
+  - Code2Text Java: [Link](https://drive.google.com/file/d/14nAonUhEKrE7Aufg6u2eNpchaiutNxIn/view?usp=sharing)
+  - Text2Code Java: [Link](https://drive.google.com/file/d/1pvolKC7o8iyGKLDCy37HXt4yH9lqTjpr/view?usp=sharing)
+- All the retrieval database: (a) one combined summary retrieval corpus for code2text for both python and Java (b) Java and Python code retrieval corpus for text2Code tasks: [LINK](https://drive.google.com/drive/folders/1njGXJuPsq5Eod9Ff5zAutRULk_G0TzQr?usp=sharing)
