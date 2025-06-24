@@ -1,5 +1,6 @@
 
 # News
+- 📢 We have improved our model and devleoped a new framework Xolver: https://kagnlp.github.io/xolver.github.io/, It achievevs a new State-of-the-art results—98.1% on GSM8K, 94.4% on AIME’24, 93.7% on AIME’25, 99.8% on Math-500, and 91.6% on LiveCodeBench. 
 - 🎉 Our new paper [CodeSim](https://github.com/kagnlp/CodeGenerator) got accepted in NAACL 2025 Findings.
 - 🎉 Our new paper [MapCoder](https://raw.githubusercontent.com/Md-Ashraful-Pramanik/MapCoder/) got accepted in [ACL 2024](https://2024.aclweb.org/).
 - All our codebase in both MapCoder and Redcoder are open-sourced with MIT and Modified MIT License.
